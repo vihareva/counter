@@ -1,0 +1,18 @@
+
+.button{
+    margin: 2px;
+    padding: 12px;
+  background-color: crimson;
+    font-size: 13px;
+    font-weight: bold;
+    color: darkcyan;
+    border-radius: 15px;
+width: 76px;
+
+}
+
+.button:disabled{
+    /*background-color: mistyrose;*/
+    opacity: 50%;
+}
+

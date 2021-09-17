@@ -1,0 +1,26 @@
+
+.number{
+    border: 3px solid crimson;
+    border-radius: 8px;
+    padding: 0px;
+    margin: 0 auto;
+    width: 293px;
+    height: 85px;
+}
+
+.text{
+text-align: center;
+    font-size: 56px;
+    font-weight: bold;
+    color: crimson;
+    margin: 0 auto;
+
+}
+.red{
+     color: red
+ }
+.redString{
+    color: darkcyan;
+    font-size: 30px;
+    font-weight: bold;
+}
