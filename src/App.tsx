@@ -11,22 +11,22 @@ import {incrementResultAC, setMaxValueAC, setResultAC, setStartValueAC, setValue
 import { toggleIsValueEntryAC} from "./redux/condit-reducer";
 
 function App() {
-    useEffect(()=>{
-        let startValueAsString=localStorage.getItem('startValue')
-        if(startValueAsString){
-            let newStartValue=JSON.parse(startValueAsString)
-            dispatch(setStartValueAC(newStartValue))
-            dispatch(setResultAC(newStartValue))
-        }
-    }, [])
+    // useEffect(()=>{
+    //     let startValueAsString=localStorage.getItem('startValue')
+    //     if(startValueAsString){
+    //         let newStartValue=JSON.parse(startValueAsString)
+    //         dispatch(setStartValueAC(newStartValue))
+    //         dispatch(setResultAC(newStartValue))
+    //     }
+    // }, [])
 
-    useEffect(()=>{
-    let maxValueAsString=localStorage.getItem('maxValue')
-    if(maxValueAsString){
-        let newMaxValue=JSON.parse(maxValueAsString)
-        dispatch(setMaxValueAC(newMaxValue))
-    }
-    }, [])
+    // useEffect(()=>{
+    // let maxValueAsString=localStorage.getItem('maxValue')
+    // if(maxValueAsString){
+    //     let newMaxValue=JSON.parse(maxValueAsString)
+    //     dispatch(setMaxValueAC(newMaxValue))
+    // }
+    // }, [])
 
     // const startValue=0;
     // const maxValue=5;

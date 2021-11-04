@@ -60,7 +60,7 @@ type ActionType=IncrementResultActionType|SetResultActionType|SetMaxValueActionT
 
 export const setValuesTC=(startValue: number,maxValue: number )=>(dispatch: Dispatch)=>{
     dispatch(setResultAC(startValue))
-    localStorage.setItem('startValue', JSON.stringify(startValue))
-    localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    // localStorage.setItem('startValue', JSON.stringify(startValue))
+    // localStorage.setItem('maxValue', JSON.stringify(maxValue))
     dispatch(toggleIsValueEntryAC(false))
 }
