@@ -9,6 +9,10 @@ type ButtonType = {
 
 export function Button(props: ButtonType) {
 
-    return <button className={s.button} disabled={props.condition} onClick={props.callBack}> {props.title}</button>
+    return <button className={s.button}
+                   disabled={props.condition}
+                   onClick={props.callBack}>
+        {props.title}
+    </button>
 
 }

@@ -5,14 +5,18 @@ import {Value} from "./Value";
 // import {Inc} from "./Inc";
 import {Button} from "./Button";
 import {Input} from "./Input";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "./redux/store";
+import {incrementResultAC, setMaxValueAC, setResultAC, setStartValueAC, setValuesTC} from "./redux/values-reducer";
+import { toggleIsValueEntryAC} from "./redux/condit-reducer";
 
 function App() {
     useEffect(()=>{
         let startValueAsString=localStorage.getItem('startValue')
         if(startValueAsString){
             let newStartValue=JSON.parse(startValueAsString)
-            setStartValue(newStartValue)
-            setResult(newStartValue)
+            dispatch(setStartValueAC(newStartValue))
+            dispatch(setResultAC(newStartValue))
         }
     }, [])
 
@@ -20,50 +24,55 @@ function App() {
     let maxValueAsString=localStorage.getItem('maxValue')
     if(maxValueAsString){
         let newMaxValue=JSON.parse(maxValueAsString)
-        setMaxValue(newMaxValue)
+        dispatch(setMaxValueAC(newMaxValue))
     }
     }, [])
 
     // const startValue=0;
     // const maxValue=5;
 
-    let [result, setResult] = useState<number>(0);
-    let [startValue, setStartValue] = useState<number>(0);
-    let [maxValue, setMaxValue] = useState<number>(5);
+    // let [result, setResult] = useState<number>(0);//1
+    //let [startValue, setStartValue] = useState<number>(0);
+    //let [maxValue, setMaxValue] = useState<number>(5);
+
+    const result=useSelector<AppStateType, number>(st=>st.values.result)
+    const startValue=useSelector<AppStateType, number>(st=>st.values.startValue)
+    const maxValue=useSelector<AppStateType, number>(st=>st.values.maxValue)
+
+    const dispatch=useDispatch()
 
     // const conditionForSettingValues = maxValue === startValue || startValue < 0 || maxValue < 0
 
-    let [enteringValuesCondition, setEnteringValuesCondition] = useState<boolean>(false);
-
+    //let [enteringValuesCondition, setEnteringValuesCondition] = useState<boolean>(false);
+    const isValueEntry=useSelector<AppStateType, boolean>(st=>st.conditions.isValueEntry)
     let conditionForIncorrectValue = maxValue <= startValue || startValue < 0 || maxValue < 0
 
     const IncrementResult = () => {
-        if (result < maxValue) {
-            setResult(++result)
+        // if (result < maxValue) {//2
+            // setResult(++result)
+            dispatch(incrementResultAC(result, maxValue))
         }
-    }
+
 
     const ResetResult = () => {
-        setResult(startValue)
+        dispatch(setResultAC(startValue))
     }
 
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(Number(e.currentTarget.value))
+        dispatch(setMaxValueAC(Number(e.currentTarget.value)))
     }
 
+
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(Number(e.currentTarget.value))
+        dispatch(setStartValueAC(Number(e.currentTarget.value)))
     }
 
     const SetValues = () => {
-        setResult(startValue)
-        localStorage.setItem('startValue', JSON.stringify(startValue))
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
-        setEnteringValuesCondition(false)
+        dispatch(setValuesTC(startValue, maxValue))
     }
 
     const onFocusHandler = () => {
-        setEnteringValuesCondition(true)
+        dispatch(toggleIsValueEntryAC(true))
     }
 
 
@@ -93,16 +102,16 @@ function App() {
             {/*    enteringValuesCondition ? 'enter values and press SET' : <Value maxValue={maxValue} result={result}/>}*/}
 
              <Value maxValue={maxValue} result={conditionForIncorrectValue ? 'incorrect value' :
-                 enteringValuesCondition ? 'enter values and press SET' :result}/>
+                 isValueEntry ? 'enter values and press SET' :result}/>
 
             {/*{condition ? 'incorrect value':<Value maxValue={maxValue} result={result}/>}*/}
 
             <div className={s.buttons}>
                 {/*<Inc setResult={setResult} result={result} />*/}
                 {/*<Reset setResult={setResult} result={result}/>*/}
-                <Button title={'INC'} condition={enteringValuesCondition || result === maxValue}
+                <Button title={'INC'} condition={isValueEntry || result === maxValue}
                         callBack={IncrementResult}/>
-                <Button title={'RESET'} condition={enteringValuesCondition || result === startValue}
+                <Button title={'RESET'} condition={isValueEntry || result === startValue}
                         callBack={ResetResult}/>
 
             </div>

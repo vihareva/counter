@@ -16,7 +16,9 @@ export function Input(props:InputProps) {
 
     return <>
         <span className={s.title}>{props.title}</span>
-        <input className={s.text} value={props.value} type={'number'} onChange={props.valueHandler} onFocus={props.onFocusHandler}/>
+        <input className={s.text} value={props.value}
+               type={'number'} onChange={props.valueHandler}
+               onFocus={props.onFocusHandler}/>
     </>
 
 }
